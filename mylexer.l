@@ -8,46 +8,64 @@ int numOfTokens = 0;
 %}
 		              /* ---- DEFINITIONS ---- */
 %option noyywrap
+INTE [+|-]?[0-9]+    
+DECE [+|-]?[0-9]+["."][0-9]+    
+SCIENCE [+|-]?[0-9]+['.'][0-9]+["E"][+|-]?[1-9]+[0-9]*
+HEX [A-H|0-9]+["H"]
+BIT [0|1]+["B"]
+PHONEONE ["("][0-9][0-9][0-9][")"][0-9][0-9][0-9]["-"][0-9][0-9][0-9][0-9]
+PHONETWO [0-9][0-9][0-9]["."][0-9][0-9][0-9]["."][0-9][0-9][0-9][0-9]
+PHONETHREE [0-9][0-9][0-9]["-"][0-9][0-9][0-9]["-"][0-9][0-9][0-9][0-9]
+KEYWORDS	["while"|"end"|"func"|"print"|"if"|"then"|"else"]
+IDENT [a-zA-Z][a-z|A-Z|0-9]*
+STRCONTS ["\""][a-z|A-Z|0-9|" "]*["\""]
+OPERATOR ["+"|"-"|"*"|"/"|"<"|">"|"="]
+
+
+
+
+
+
 
 %%  		              /* ---- REGULAR EXPRESSIONS ---- */
 
 [ \t]			{ numOfTokens++; }
 \n              { numLines++; }
 
-[+|-]?[0-9]+    
+{INTE}    
 { cout << "#" << numOfTokens << " TOKEN: INTCONST   LEXEME: " << yytext << endl; }
 
-[+|-]?[0-9]+['.'][0-9]+    
+{DECE}
 { cout << "#" << numOfTokens << " TOKEN: DECCONST   LEXEME: " << yytext << endl; }
 
-[+|-]?[0-9]+['.'][0-9]+['E'][+|-]?[1-9]+[0-9]*
+{SCIENCE}
 { cout << "#" << numOfTokens << " TOKEN: SCICONST   LEXEME: " << yytext << endl; }
 
-[A-H|0-9]+['H']
+{HEX}
 { cout << "#" << numOfTokens << " TOKEN: HEXCONST   LEXEME: " << yytext << endl; }
 
-[0|1]+['B']
+{BIT}
 { cout << "#" << numOfTokens << " TOKEN: BINCONST   LEXEME: " << yytext << endl; }
 
-['('][0-9][0-9][0-9][')'][0-9][0-9][0-9]['-'][0-9][0-9][0-9][0-9]
+{PHONEONE}
 { cout << "#" << numOfTokens << " TOKEN: PHCONST   LEXEME: " << yytext << endl; }
 
-[0-9][0-9][0-9]['.'][0-9][0-9][0-9]['.'][0-9][0-9][0-9][0-9]
+{PHONETWO}
 { cout << "#" << numOfTokens << " TOKEN: PHCONST   LEXEME: " << yytext << endl; }
 
-[0-9][0-9][0-9]['-'][0-9][0-9][0-9]['-'][0-9][0-9][0-9][0-9]
+{PHONETHREE}
 { cout << "#" << numOfTokens << " TOKEN: PHCONST   LEXEME: " << yytext << endl; }
 
-["while"|"end"|"func"|"print"|"if"|"then"|"else"]
+{KEYWORDS}
 { cout << "#" << numOfTokens << " TOKEN: KEYWORD   LEXEME: " << yytext << endl; }
 
-[a-zA-Z][a-z|A-Z|0-9]*
+{IDENT}
 { cout << "#" << numOfTokens << " TOKEN: IDENT   LEXEME: " << yytext << endl; }
 
-["\""][a-z|A-Z|0-9|" "]*["\""]
+{STRCONTS}
 { cout << "#" << numOfTokens << " TOKEN: STRCONST   LEXEME: " << yytext << endl; }
 
-["+"|"-"|"*"|"/"|"<"|">"|"="]
+{OPERATOR}
 { cout << "#" << numOfTokens << " TOKEN: OPERATOR   LEXEME: " << yytext << endl; }
 
 
